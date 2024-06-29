@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>To-Do List</h1>
+        </header>
+        
+        <section class="add-todo">
+            <input type="text" v-model="newTodo" placeholder="Tambahkan tugas baru..." @keyup.enter="addTodo">
+            <button @click="addTodo">Tambah</button>
+        </section>
+        
+        <section class="todo-list">
+            <ul>
+                <li v-for="(todo, index) in todos" :key="index">
+                    <span v-if="!todo.isEditing">{{ todo.text }}</span>
+                    <input v-else type="text" v-model="todo.text" @keyup.enter="updateTodo(todo)" @blur="updateTodo(todo)">
+                    <button @click="editTodo(todo)">{{ todo.isEditing ? 'Simpan' : 'Edit' }}</button>
+                    <button @click="deleteTodo(index)">Hapus</button>
+                </li>
+            </ul>
+        </section>
+
+        <footer>
+            <p>&copy; 2024 To-Do List App</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script src="script.js"></script>
+</body>
+</html>
